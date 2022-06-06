@@ -312,13 +312,21 @@ set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST_ADDITION ${CMAKE_INSTALL_FULL_MANDIR}
                                                   ${CMAKE_INSTALL_FULL_MANDIR}/man2
                                                   ${CMAKE_INSTALL_FULL_INCLUDEDIR}/sys)
 
+# WORKAROUND: Do not build a static library on Windows by default.
+#
+if(NOT WIN32)
+  set(default_library_targets kqueue kqueue_static)
+else()
+  set(default_library_targets kqueue)
+endif()
+
 install(FILES
           "${CMAKE_SOURCE_DIR}/include/sys/event.h"
         DESTINATION
           "${CMAKE_INSTALL_FULL_INCLUDEDIR}/kqueue/sys"
         COMPONENT headers)
 install(TARGETS
-          kqueue kqueue_static
+          ${default_library_targets}
         DESTINATION
           "${CMAKE_INSTALL_FULL_LIBDIR}"
         COMPONENT libraries)
