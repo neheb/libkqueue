@@ -57,6 +57,8 @@ elseif(UNIX)
   target_link_libraries(libkqueue-test PRIVATE -rdynamic)
 endif()
 
+target_link_libraries(libkqueue-test PRIVATE Threads::Threads)
+
 #
 # Don't link against -lkqueue on OSX and FreeBSD
 #
