@@ -25,6 +25,7 @@
 #include <sys/resource.h>
 #include <sys/time.h>
 
+struct filter;
 #include "../posix/eventfd.h"
 
 #define atomic_uintptr_t                  uintptr_t
