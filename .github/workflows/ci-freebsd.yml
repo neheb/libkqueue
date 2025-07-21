@@ -38,3 +38,20 @@ jobs:
           cmake .
           make
           ./libkqueue-test
+  omnios-tests:
+# virtualbox takes a long time to start
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    name: "FreeBSD tests"
+    steps:
+    - uses: actions/checkout@v4
+    - name: libkqueue test suite
+      uses: vmactions/omnios-vm@v1
+      with:
+        prepare: |
+          pkg install cmake gcc14 git
+        run: |
+          cd libkqueue/test
+          cmake .
+          make
+          ./libkqueue-test

@@ -287,6 +287,7 @@ if(WIN32)
 else()
   include(StdAtomicCheck)
   target_compile_definitions(objlib PRIVATE _XOPEN_SOURCE=600)
+  target_compile_definitions(objlib PRIVATE __EXTENSIONS__)
 endif()
 
 target_include_directories(objlib PRIVATE include)
