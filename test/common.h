@@ -60,6 +60,7 @@
 #endif
 
 #ifndef _WIN32
+#include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -154,8 +155,8 @@ void
 kevent_add(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata);
 
@@ -165,8 +166,8 @@ void
 _kevent_add_with_receipt(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t  flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata,
         char const *file,
