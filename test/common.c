@@ -234,7 +234,7 @@ kevent_to_str(struct kevent *kev)
 
     snprintf(buf, sizeof(buf),
             "[ident=%d, filter=%s, %s, %s, data=%d, udata=%p]",
-            (u_int) kev->ident,
+            (unsigned int) kev->ident,
             kevent_filter_dump(kev),
             kevent_flags_dump(kev),
             kevent_fflags_dump(kev),
@@ -267,8 +267,8 @@ void
 kevent_add(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t  flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata)
 {
@@ -298,8 +298,8 @@ void
 _kevent_add_with_receipt(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t  flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata,
         char const *file,

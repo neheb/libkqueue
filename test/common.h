@@ -55,7 +55,12 @@
 #  include <netinet/in.h>
 #endif
 
+#if defined(__APPLE__) || defined(__FreeBSD__)
+#define NATIVE_KQUEUE 1
+#endif
+
 #ifndef _WIN32
+#include <sys/select.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -119,6 +124,7 @@ void test_evfilt_proc(struct test_context *);
 void test_evfilt_user(struct test_context *);
 #endif
 void test_evfilt_libkqueue(struct test_context *);
+void test_threading(struct test_context *);
 
 #define test(f, ctx ,...) do {                                            \
     if ((ctx->test->ut_num >= ctx->test->ut_start) && (ctx->test->ut_num <= ctx->test->ut_end)) {\
@@ -149,8 +155,8 @@ void
 kevent_add(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata);
 
@@ -160,8 +166,8 @@ void
 _kevent_add_with_receipt(int kqfd, struct kevent *kev,
         uintptr_t ident,
         short     filter,
-        u_short   flags,
-        u_int     fflags,
+        uint16_t  flags,
+        uint32_t  fflags,
         intptr_t  data,
         void      *udata,
         char const *file,
